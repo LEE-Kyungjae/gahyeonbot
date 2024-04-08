@@ -38,12 +38,11 @@ public class CommandManager extends ListenerAdapter {
                 });
             });
         });
-        for (Guild guild : event.getJDA().getGuilds()) {
-            for (ICommand command : commands) {
-                guild.upsertCommand(command.getName(), command.getDescription()).addOptions(command.getOptions()).queue();
-            }
-        }
-
+//        for (Guild guild : event.getJDA().getGuilds()) {
+//            for (ICommand command : commands) {
+//                guild.upsertCommand(command.getName(), command.getDescription()).addOptions(command.getOptions()).queue();
+//            }
+//        }
     }
 
     //길드 커멘드 : 최대 100개까지 제한

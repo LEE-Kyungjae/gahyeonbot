@@ -49,6 +49,7 @@ public class Main {
         shardManager = builder.build();
 
         CommandManager manager = new CommandManager();
+        manager.setShardManager(shardManager);
         manager.add(new Clean());
         manager.add(new Soloout());
         manager.add(new Outwith());
