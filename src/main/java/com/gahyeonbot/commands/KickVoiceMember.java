@@ -27,18 +27,23 @@ public class KickVoiceMember implements ICommand {
     @Override
     public List<OptionData> getOptions() {
         List<OptionData> data = new ArrayList<>();
-        data.add(new OptionData(OptionType.INTEGER, "minute", "시간(분) 을 정수로 입력해주세요", true)
-                .setMinValue(1)
-                .setMaxValue(10000));
+        data.add(new OptionData(OptionType.STRING, "time", "내보낼 시간을 선택하세요", true)
+                .addChoice("3시간", "180")
+                .addChoice("2시간30분", "150")
+                .addChoice("2시간", "120")
+                .addChoice("1시간30분", "90")
+                .addChoice("1시간", "60")
+                .addChoice("45분", "45")
+                .addChoice("30분", "30")
+                .addChoice("10분", "10")
+                .addChoice("5분", "5")
+                .addChoice("1분", "1")
+        );
         return data;
     }
     @Override
     public void execute(SlashCommandInteractionEvent event) {
-        int minute = Integer.parseInt(event.getOption("minute").getAsString());
-        if (minute <= 0) {
-            event.reply("시간은 양의 정수여야 합니다.").queue();
-            return;
-        }
+        int minute = Integer.parseInt(event.getOption("time").getAsString());
         Member member = event.getMember();
         if (member == null) {
             event.reply("오류: 사용자 정보를 찾을 수 없습니다.").setEphemeral(true).queue();
