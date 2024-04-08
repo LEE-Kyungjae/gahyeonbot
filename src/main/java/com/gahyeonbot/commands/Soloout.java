@@ -12,12 +12,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class KickVoiceMember implements ICommand {
+public class Soloout implements ICommand {
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
     @Override
     public String getName() {
-        return "out";
+        return "soloout";
     }
 
     @Override

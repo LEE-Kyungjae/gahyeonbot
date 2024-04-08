@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 커멘드를 사용하면 일정시간뒤에 접속한 보이스채널에 본인을포함한 멤버들을 모두 내보내는 커멘드
  */
-public class KickAllVoiceMember implements ICommand {
+public class Outwith implements ICommand {
     private ScheduledFuture<?> scheduledTask;
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
@@ -52,10 +52,6 @@ public class KickAllVoiceMember implements ICommand {
     @Override
     public void execute(SlashCommandInteractionEvent event) {
         int minute = Integer.parseInt(Objects.requireNonNull(event.getOption("time")).getAsString());
-        if (minute <= 0) {
-            event.reply("시간은 양의 정수여야 합니다.").queue();
-            return;
-        }
         Member member = event.getMember();
         if (member == null) {
             event.reply("오류: 사용자 정보를 찾을 수 없습니다.").setEphemeral(true).queue();

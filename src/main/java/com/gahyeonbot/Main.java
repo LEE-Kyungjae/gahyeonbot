@@ -50,8 +50,8 @@ public class Main {
 
         CommandManager manager = new CommandManager();
         manager.add(new Clean());
-        manager.add(new KickVoiceMember());
-        manager.add(new KickAllVoiceMember());
+        manager.add(new Soloout());
+        manager.add(new Outwith());
         shardManager.addEventListener(manager);
         EventListeners listeners = new EventListeners();
         shardManager.addEventListener(listeners);
