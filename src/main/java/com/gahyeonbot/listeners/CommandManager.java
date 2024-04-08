@@ -23,26 +23,27 @@ public class CommandManager extends ListenerAdapter {
     //전역 커멘드 : 한계없음. 업데이트까지 시간이걸림
     @Override
     public void onReady(@NotNull ReadyEvent event) {
+        //  커멘드를 삭제하고 재등록할떄만 한번 작동시키면 됨
+        shardManager.getGuilds().forEach(guild -> {
+            // 모든 길드에 대해 커맨드 조회 후 삭제
+            guild.retrieveCommands().queue(commands -> {
+                commands.forEach(command -> {
+                    // 커맨드를 하나씩 삭제
+                    guild.deleteCommandById(command.getId()).queue(
+                            success -> {
+                                System.out.println("Command deleted: " + command.getName());
+                            },
+                            error -> System.err.println("Failed to delete command: " + command.getName())
+                    );
+                });
+            });
+        });
         for (Guild guild : event.getJDA().getGuilds()) {
             for (ICommand command : commands) {
                 guild.upsertCommand(command.getName(), command.getDescription()).addOptions(command.getOptions()).queue();
             }
         }
-        //  커멘드를 삭제하고 재등록할떄만 한번 작동시키면 됨
-//        shardManager.getGuilds().forEach(guild -> {
-//            // 모든 길드에 대해 커맨드 조회 후 삭제
-//            guild.retrieveCommands().queue(commands -> {
-//                commands.forEach(command -> {
-//                    // 커맨드를 하나씩 삭제
-//                    guild.deleteCommandById(command.getId()).queue(
-//                            success -> {
-//                                System.out.println("Command deleted: " + command.getName());
-//                            },
-//                            error -> System.err.println("Failed to delete command: " + command.getName())
-//                    );
-//                });
-//            });
-//        });
+
     }
 
     //길드 커멘드 : 최대 100개까지 제한
