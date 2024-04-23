@@ -35,16 +35,10 @@ public class Outwith implements ICommand {
     public List<OptionData> getOptions() {
         List<OptionData> data = new ArrayList<>();
         data.add(new OptionData(OptionType.STRING, "time", "내보낼 시간을 선택하세요", true)
+                .addChoice("4시간", "240")
                 .addChoice("3시간", "180")
-                .addChoice("2시간30분", "150")
                 .addChoice("2시간", "120")
-                .addChoice("1시간30분", "90")
                 .addChoice("1시간", "60")
-                .addChoice("45분", "45")
-                .addChoice("30분", "30")
-                .addChoice("10분", "10")
-                .addChoice("5분", "5")
-                .addChoice("1분", "1")
         );
         return data;
     }
