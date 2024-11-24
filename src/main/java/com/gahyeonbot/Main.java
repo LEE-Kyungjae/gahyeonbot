@@ -41,7 +41,7 @@ public class Main {
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder
                 .createDefault(token)
                 .setStatus(OnlineStatus.ONLINE)
-                .setActivity(Activity.playing("경재랑 데이트"))
+                .setActivity(Activity.playing("데이트 중"))
                 .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_PRESENCES)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .setChunkingFilter(ChunkingFilter.ALL)
@@ -53,6 +53,7 @@ public class Main {
         manager.add(new Clean());
         manager.add(new Soloout());
         manager.add(new Outwith());
+        manager.add(new Allhere());
         shardManager.addEventListener(manager);
         EventListeners listeners = new EventListeners();
         shardManager.addEventListener(listeners);
