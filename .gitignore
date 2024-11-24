@@ -25,9 +25,8 @@
 Thumbs.db
 
 # 환경 파일
-.env
 *.properties
 *.yml
-
+.aaa
 # 테스트 보고서
 /test-output/
