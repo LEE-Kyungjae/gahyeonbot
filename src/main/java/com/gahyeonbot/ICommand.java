@@ -12,5 +12,4 @@ public interface ICommand {
     List<OptionData> getOptions();
 
     void execute(SlashCommandInteractionEvent event);
-
 }

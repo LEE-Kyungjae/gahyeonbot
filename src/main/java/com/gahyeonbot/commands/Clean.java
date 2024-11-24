@@ -26,7 +26,7 @@ public class Clean implements ICommand {
         List<OptionData> data = new ArrayList<>();
         data.add(new OptionData(OptionType.INTEGER, "line", "how many delete line?", true)
                 .setMinValue(1)
-                .setMaxValue(100));
+                .setMaxValue(1000));
         return data;
     }
 
