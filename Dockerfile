@@ -10,5 +10,11 @@ WORKDIR /app
 # 4. 애플리케이션의 JAR 파일 복사
 COPY ${JAR_FILE} /app/bot.jar
 
-# 5. Docker 컨테이너 실행 시 명령어
-CMD ["sh", "-c", "java $JAVA_OPTS -jar bot.jar > /app/log.txt 2>&1 && tail -f /app/log.txt"]
+# 5. 포트 설정
+EXPOSE 8080
+
+# 6. 디버깅용 파일 상태 확인
+RUN ls -al /app
+
+# 7. Docker 컨테이너 실행 시 명령어
+CMD ["java", "-jar", "bot.jar"]
