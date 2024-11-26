@@ -20,4 +20,4 @@ EXPOSE 8080
 RUN ls -al /app
 
 # 7. Docker 컨테이너 실행 시 명령어
-CMD ["sh", "-c", "java -jar bot.jar > /app/log.txt 2>&1 && tail -f /app/log.txt"]
+CMD ["sh", "-c", "java -jar /app/bot.jar > /app/log.txt 2>&1 && tail -f /app/log.txt"]
