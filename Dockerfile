@@ -10,6 +10,9 @@ WORKDIR /app
 # 4. 애플리케이션의 JAR 파일 복사
 COPY ${JAR_FILE} /app/bot.jar
 
+# 5. .env 파일 복사
+COPY .env /app/.env
+
 # 5. 포트 설정
 EXPOSE 8080
 
@@ -17,4 +20,4 @@ EXPOSE 8080
 RUN ls -al /app
 
 # 7. Docker 컨테이너 실행 시 명령어
-CMD ["java", "-jar", "bot.jar"]
+CMD ["sh", "-c", "java -jar bot.jar > /app/log.txt 2>&1 && tail -f /app/log.txt"]
