@@ -38,14 +38,14 @@ public class Clean implements ICommand {
 
     @Override
     public void execute(SlashCommandInteractionEvent event) {
-        if (!event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) {
-            event.reply("봇에게 'MESSAGE_MANAGE' 권한이 없습니다. 관리자에게 요청해주세요.").setEphemeral(true).queue();
-            return;
-        }
-        if (!event.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
-            event.reply("이 명령어를 실행할 권한이 없습니다.").setEphemeral(true).queue();
-            return;
-        }
+//        if (!event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) {
+//            event.reply("봇에게 'MESSAGE_MANAGE' 권한이 없습니다. 관리자에게 요청해주세요.").setEphemeral(true).queue();
+//            return;
+//        }
+//        if (!event.getMember().hasPermission(Permission.MESSAGE_MANAGE)) {
+//            event.reply("이 명령어를 실행할 권한이 없습니다.").setEphemeral(true).queue();
+//            return;
+//        }
         MessageChannel channel = event.getChannel();
         OptionMapping lineOption = event.getOption("line");
         OptionMapping myOption = event.getOption("my");

@@ -51,10 +51,10 @@ public class Allhere implements ICommand {
         }
 
         // 사용자가 VOICE_MOVE_OTHERS 권한을 가지고 있는지 확인
-        if (!executor.hasPermission(Permission.VOICE_MOVE_OTHERS)) {
-            event.reply("권한 부족: 다른 사용자를 이동시키기 위해 서버관리자에게 VOICE_MOVE_OTHERS 권한을 요창해주세요").setEphemeral(true).queue();
-            return;
-        }
+//        if (!executor.hasPermission(Permission.VOICE_MOVE_OTHERS)) {
+//            event.reply("권한 부족: 다른 사용자를 이동시키기 위해 서버관리자에게 VOICE_MOVE_OTHERS 권한을 요창해주세요").setEphemeral(true).queue();
+//            return;
+//        }
 
         // 메시지 채널 가져오기
         MessageChannel messageChannel = event.getChannel();
