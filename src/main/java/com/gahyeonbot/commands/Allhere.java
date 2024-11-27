@@ -18,7 +18,7 @@ public class Allhere implements ICommand {
     public String getName() {
         return "allhere";
     }
-
+ 
     @Override
     public String getDescription() {
         return "모든 보이스 채널의 사용자들을 현재 보이스 채널로 이동시킵니다.";
