@@ -3,8 +3,6 @@ FROM openjdk:17-jdk-slim
 
 # 2. Build Arguments
 ARG JAR_FILE=build/libs/gahyeonbot-1.0.0.jar
-ARG TOKEN
-ARG APPLICATION_ID
 
 # 3. 작업 디렉토리 생성 및 설정
 WORKDIR /app
