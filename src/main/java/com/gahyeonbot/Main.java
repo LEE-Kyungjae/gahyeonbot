@@ -1,6 +1,7 @@
 package com.gahyeonbot;
 
 import com.gahyeonbot.commands.*;
+import com.gahyeonbot.config.ConfigLoader;
 import com.gahyeonbot.listeners.CommandManager;
 import com.gahyeonbot.listeners.EventListeners;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -14,6 +15,8 @@ import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 import javax.security.auth.login.LoginException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -31,17 +34,21 @@ import javax.security.auth.login.LoginException;
  * MemberCache,ChunkingFilte,CacheFlag 모두 많은 하드웨어 리소스를 사용하고 소모시킨다는점을 염두해둬야함
  */
 public class Main {
-    private final Dotenv config;
+    private final ConfigLoader config;
     private final ShardManager shardManager;
 
     public Main() {
-        config = Dotenv.configure().load();
-        String token = config.get("TOKEN");
+        config = new ConfigLoader();
+        String token = config.getToken();
+
+        if (token == null || token.isEmpty()) {
+            throw new IllegalArgumentException("TOKEN이 설정되지 않았습니다!");
+        }
 
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder
                 .createDefault(token)
                 .setStatus(OnlineStatus.ONLINE)
-                .setActivity(Activity.playing("데이트 중"))
+                .setActivity(Activity.playing("데이트"))
                 .enableIntents(GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_MESSAGES, GatewayIntent.MESSAGE_CONTENT, GatewayIntent.GUILD_PRESENCES)
                 .setMemberCachePolicy(MemberCachePolicy.ALL)
                 .setChunkingFilter(ChunkingFilter.ALL)
@@ -50,20 +57,34 @@ public class Main {
 
         CommandManager manager = new CommandManager();
         manager.setShardManager(shardManager);
-        manager.add(new Clean());
-        manager.add(new Soloout());
-        manager.add(new Outwith());
-        manager.add(new Allhere());
+        registerCommands(manager);
+
         shardManager.addEventListener(manager);
+
         EventListeners listeners = new EventListeners();
         shardManager.addEventListener(listeners);
+    }
+
+    private void registerCommands(CommandManager manager) {
+        List<ICommand> commandList = new ArrayList<>();
+        commandList.add(new Clean());
+        commandList.add(new Soloout());
+        commandList.add(new Outwith());
+        commandList.add(new Allhere());
+        commandList.add(new RemoveBots());
+
+        manager.add(new Info(commandList));
+
+        for (ICommand cmd : commandList) {
+            manager.add(cmd);
+        }
     }
 
     public ShardManager getShardManager() {
         return shardManager;
     }
 
-    public Dotenv getConfig() {
+    public ConfigLoader getConfig() {
         return config;
     }
 

@@ -8,29 +8,45 @@ import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
+import net.dv8tion.jda.api.events.session.ShutdownEvent;
 import net.dv8tion.jda.api.events.user.update.UserUpdateOnlineStatusEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class EventListeners extends ListenerAdapter {
 
+    private final Map<String, String> emojiResponses = new HashMap<>();
+//봇 강제종류 알림
+//    @Override
+//    public void onShutdown(ShutdownEvent event) {
+//        notifyAllServers(event);
+//    }
+
     /**
      * 메시지 반응이모지 리스너
      */
-    @Override
-    public void onMessageReactionAdd(@NotNull MessageReactionAddEvent event) {
-        User user = event.getUser();
-        String emoji = event.getReaction().getEmoji().getAsReactionCode();
-        String channelMention = event.getChannel().getAsMention();
-        String jumpLink = event.getJumpUrl();
-        assert user != null;
-        String message = user.getAsMention() + "reacted to a message with " + emoji + "in the " + channelMention + "channel!";
-        Objects.requireNonNull(event.getGuild().getDefaultChannel()).asTextChannel().sendMessage(message).queue();
+//    @Override
+//    public void onMessageReactionAdd(@NotNull MessageReactionAddEvent event) {
+//        User user = event.getUser();
+//        if (user == null || user.isBot()) return;
+//
+//        String emoji = event.getReaction().getEmoji().getAsReactionCode();
+//        String message = String.format("%s 님이 %s 메시지에 %s 반응을 추가했습니다!",
+//                user.getAsMention(),
+//                event.getChannel().getAsMention(),
+//                emoji
+//        );
+//
+//        Objects.requireNonNull(event.getGuild().getDefaultChannel())
+//                .asTextChannel()
+//                .sendMessage(message).queue();
+//    }
 
-    }
 
     /**
      * 텍스트채널 메시지 수신리스너
@@ -65,37 +81,28 @@ public class EventListeners extends ListenerAdapter {
         String USER_ID = config.get("USER_ID");
 
         User user = event.getJDA().getUserById(USER_ID);
+        if (user == null) return;
 
-        List<Member> members = event.getGuild().getMembers();
-        int onlineMember = 0;
-        for (Member member : members){
-            if(member.getOnlineStatus()== OnlineStatus.ONLINE){
-                ++onlineMember;
-            }
-        }
+        long onlineCount = event.getGuild().getMembers().stream()
+                .filter(member -> member.getOnlineStatus() == OnlineStatus.ONLINE)
+                .count();
+
         String userState = changeStateKr(event.getNewOnlineStatus().getKey());
-        String message = " ** " + user.getName() + "** 님께서 "+userState+ "상태로 변경하셨습니다"+ "현재 온라인 유저는 "+onlineMember+"명 입니다";
+        String message = "**" + user.getName() + "** 님이 " + userState + " 상태로 변경되었습니다. 현재 온라인 유저 수: " + onlineCount;
 
-        Objects.requireNonNull(event.getGuild().getDefaultChannel()).asTextChannel().sendMessage(message).queue();
+        Objects.requireNonNull(event.getGuild().getDefaultChannel())
+                .asTextChannel()
+                .sendMessage(message).queue();
     }
 
+    private static final Map<String, String> STATE_MAP = Map.of(
+            "offline", "오프라인",
+            "online", "온라인",
+            "idle", "자리비움",
+            "dnd", "방해금지"
+    );
+
     private String changeStateKr(String key) {
-        switch (key) {
-            case "offline":
-                key= "오프라인";
-                break;
-            case "online":
-                key= "온라인";
-                break;
-            case "idle":
-                key= "자리비움";
-                break;
-            case "dnd":
-                key= "방해금지";
-                break;
-            default:
-                break;
-        }
-        return key;
+        return STATE_MAP.getOrDefault(key, "알 수 없음");
     }
 }
