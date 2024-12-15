@@ -1,11 +1,10 @@
 package com.gahyeonbot.commands;
 
 import com.gahyeonbot.ICommand;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -24,6 +23,12 @@ public class Soloout implements ICommand {
     public String getDescription() {
         return "지정한 시간 후에 보이스채널에 있는 사용자를 내보냅니다.";
     }
+
+    @Override
+    public String getDetailedDescription() {
+        return "보이스 채널에서 특정 사용자를 지정된 시간 후 내보내는 명령어입니다.";
+    }
+
     @Override
     public List<OptionData> getOptions() {
         List<OptionData> data = new ArrayList<>();
@@ -34,35 +39,30 @@ public class Soloout implements ICommand {
                 .addChoice("4시간", "240"));
         data.add(new OptionData(OptionType.INTEGER, "time", "직접 HHMM/HMM/MM 형식 시간 입력 (예: 130 → 1시간 30분)", false)
                 .setMinValue(1)
-                .setMaxValue(1000)
-        );
+                .setMaxValue(1000));
         return data;
     }
+
     @Override
     public void execute(SlashCommandInteractionEvent event) {
-
-
-
         int minute = Integer.parseInt(event.getOption("time").getAsString());
-        Member member = event.getMember();
-        if (member == null) {
-            event.reply("오류: 사용자 정보를 찾을 수 없습니다.").setEphemeral(true).queue();
+        var member = event.getMember();
+
+        if (member == null || member.getVoiceState() == null || member.getVoiceState().getChannel() == null) {
+            event.reply("오류: 보이스 채널에 접속 중이 아닙니다.").setEphemeral(true).queue();
             return;
         }
-        VoiceChannel voiceChannel = (VoiceChannel) member.getVoiceState().getChannel();
 
-        String nickname = member.getUser().getEffectiveName();
+        var voiceChannel = member.getVoiceState().getChannel();
+        var nickname = member.getEffectiveName();
 
-        if (voiceChannel == null) {
-            event.reply(nickname +" 님! 보이스 채널에 접속 중이 아니에요! ").queue();
-            return;
-        }
-        event.deferReply().setContent(minute+"분후에 내보낼예정").queue(); // 응답 지연
+        event.deferReply().setContent(minute + "분 후에 " + nickname + "님을 내보낼 예정입니다.").queue();
+
         scheduler.schedule(() -> {
             member.getGuild().kickVoiceMember(member).queue(
-                    success -> event.getHook().sendMessage("보이스채널에있는 사용자를 내보냈습니다.").queue(), // 응답 지연 해제
-                    failure -> event.getHook().sendMessage("오류가 발생했습니다 아마 보이스채널에 없으신거같아요" + failure.getMessage()).queue() // 응답 지연 해제
-                    );
-        },minute, TimeUnit.MINUTES);
+                    success -> event.getHook().sendMessage(nickname + "님을 보이스 채널에서 내보냈습니다.").queue(),
+                    failure -> event.getHook().sendMessage("오류가 발생했습니다. " + failure.getMessage()).queue()
+            );
+        }, minute, TimeUnit.MINUTES);
     }
 }

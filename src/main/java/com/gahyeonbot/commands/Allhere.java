@@ -25,6 +25,11 @@ public class Allhere implements ICommand {
     }
 
     @Override
+    public String getDetailedDescription() {
+        return "";
+    }
+
+    @Override
     public List<OptionData> getOptions() {
         // 이 명령어에는 추가 옵션이 필요하지 않으므로 빈 리스트 반환
         return new ArrayList<>();

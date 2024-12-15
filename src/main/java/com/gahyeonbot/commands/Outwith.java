@@ -35,6 +35,11 @@ public class Outwith implements ICommand {
     }
 
     @Override
+    public String getDetailedDescription() {
+        return "";
+    }
+
+    @Override
     public List<OptionData> getOptions() {
         List<OptionData> data = new ArrayList<>();
         data.add(new OptionData(OptionType.STRING, "preset", "선택형 시간지정", false)

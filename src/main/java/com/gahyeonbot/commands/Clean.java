@@ -25,6 +25,11 @@ public class Clean implements ICommand {
     }
 
     @Override
+    public String getDetailedDescription() {
+        return "";
+    }
+
+    @Override
     public List<OptionData> getOptions() {
         List<OptionData> data = new ArrayList<>();
         data.add(new OptionData(OptionType.INTEGER, "line", "최근순으로 채팅을 삭제합니다. (최대1000줄)", false)

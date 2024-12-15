@@ -9,6 +9,7 @@ import java.util.List;
 public interface ICommand {
     String getName();
     String getDescription();
+    String getDetailedDescription();
     List<OptionData> getOptions();
 
     void execute(SlashCommandInteractionEvent event);
