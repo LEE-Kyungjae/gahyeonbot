@@ -19,15 +19,15 @@
 *.iml
 *.jar
 *.war
-
+*yml
 # 운영 체제 관련 파일
 .DS_Store
 Thumbs.db
 
 # 환경 파일
 .env
+.gitignore
 *.properties
 *.yml
-
 # 테스트 보고서
 /test-output/
