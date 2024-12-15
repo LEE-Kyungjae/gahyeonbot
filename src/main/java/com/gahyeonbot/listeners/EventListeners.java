@@ -1,27 +1,32 @@
 package com.gahyeonbot.listeners;
 
-import io.github.cdimascio.dotenv.Dotenv;
+import com.gahyeonbot.config.ConfigLoader;
 import net.dv8tion.jda.api.OnlineStatus;
-import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
-import net.dv8tion.jda.api.events.session.ShutdownEvent;
 import net.dv8tion.jda.api.events.user.update.UserUpdateOnlineStatusEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 public class EventListeners extends ListenerAdapter {
-
+    private final ConfigLoader configLoader;
+    public EventListeners(ConfigLoader config) {
+        this.configLoader = config;  // 중복 초기화 방지
+    }
     private final Map<String, String> emojiResponses = new HashMap<>();
-//봇 강제종류 알림
+    private static final Map<String, String> STATE_MAP = Map.of(
+            "offline", "오프라인",
+            "online", "온라인",
+            "idle", "자리비움",
+            "dnd", "방해금지"
+    );
+
+    //봇 강제종류 알림
 //    @Override
 //    public void onShutdown(ShutdownEvent event) {
 //        notifyAllServers(event);
@@ -77,12 +82,16 @@ public class EventListeners extends ListenerAdapter {
      */
     @Override
     public void onUserUpdateOnlineStatus(@NotNull UserUpdateOnlineStatusEvent event) {
-        Dotenv config = Dotenv.configure().load();
-        String USER_ID = config.get("USER_ID");
+        String USER_ID;
+        try {
+            USER_ID = configLoader.getValue("USER_ID");
+        } catch (IllegalArgumentException e) {
+            System.err.println("환경 변수 'USER_ID'가 설정되지 않았습니다.");
+            return;
+        }
 
         User user = event.getJDA().getUserById(USER_ID);
         if (user == null) return;
-
         long onlineCount = event.getGuild().getMembers().stream()
                 .filter(member -> member.getOnlineStatus() == OnlineStatus.ONLINE)
                 .count();
@@ -95,12 +104,7 @@ public class EventListeners extends ListenerAdapter {
                 .sendMessage(message).queue();
     }
 
-    private static final Map<String, String> STATE_MAP = Map.of(
-            "offline", "오프라인",
-            "online", "온라인",
-            "idle", "자리비움",
-            "dnd", "방해금지"
-    );
+
 
     private String changeStateKr(String key) {
         return STATE_MAP.getOrDefault(key, "알 수 없음");

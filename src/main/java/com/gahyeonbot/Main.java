@@ -60,7 +60,7 @@ public class Main {
 
         shardManager.addEventListener(manager);
 
-        EventListeners listeners = new EventListeners();
+        EventListeners listeners = new EventListeners(config);
         shardManager.addEventListener(listeners);
     }
 

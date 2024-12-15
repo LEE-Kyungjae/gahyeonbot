@@ -27,7 +27,7 @@ public class ConfigLoader {
     public String getToken() {
         return getValue("TOKEN");
     }
-    private String getValue(String key) {
+    public String getValue(String key) {
         String value = config.get(key);
         if (value == null || value.isEmpty()) {
             value = System.getenv(key);
