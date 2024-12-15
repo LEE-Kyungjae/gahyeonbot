@@ -19,7 +19,6 @@
 *.iml
 *.jar
 *.war
-*yml
 # 운영 체제 관련 파일
 .DS_Store
 Thumbs.db

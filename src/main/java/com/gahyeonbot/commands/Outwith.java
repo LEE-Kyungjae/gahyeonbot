@@ -59,10 +59,10 @@ public class Outwith implements ICommand {
         // 명령어 실행 사용자의 권한 확인
         Member executor = event.getMember();
         // 사용자가 'VOICE_MOVE_OTHERS' 권한이 있는지 확인
-        if (!executor.hasPermission(Permission.VOICE_MOVE_OTHERS)) {
-            event.reply("이 명령어를 실행할 권한이 없습니다. 당신에게 'VOICE_MOVE_OTHERS' 권한이 필요합니다.").setEphemeral(true).queue();
-            return;
-        }
+//        if (!executor.hasPermission(Permission.VOICE_MOVE_OTHERS)) {
+//            event.reply("이 명령어를 실행할 권한이 없습니다. 당신에게 'VOICE_MOVE_OTHERS' 권한이 필요합니다.").setEphemeral(true).queue();
+//            return;
+//        }
         String presetValue = event.getOption("preset") != null ? event.getOption("preset").getAsString() : null;
         String customValue = event.getOption("time") != null ? event.getOption("time").getAsString() : null;
 
