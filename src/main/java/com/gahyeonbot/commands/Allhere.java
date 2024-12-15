@@ -26,7 +26,7 @@ public class Allhere implements ICommand {
 
     @Override
     public String getDetailedDescription() {
-        return "";
+        return "현디스코드서버의 모든 채널에있는 이용자를 사용자의 보이스채널로 집결시킵니다";
     }
 
     @Override

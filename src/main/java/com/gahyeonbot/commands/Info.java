@@ -50,7 +50,7 @@ public class Info implements ICommand {
 
             String fieldValue = description;
             if (detailedDescription != null && !detailedDescription.isEmpty()) {
-                fieldValue += "\n**상세설명:** " + detailedDescription;
+                fieldValue += "\n**사용법:** " + detailedDescription;
             }
 
             embed.addField("/" + command.getName(), fieldValue, false);

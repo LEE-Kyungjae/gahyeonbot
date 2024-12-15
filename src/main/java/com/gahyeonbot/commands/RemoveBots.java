@@ -24,7 +24,7 @@ public class RemoveBots implements ICommand {
 
     @Override
     public String getDetailedDescription() {
-        return "";
+        return "보이스채널에 있는 모든 봇을 내보내기때문에 현재 필요한봇이 있는지 확인하시길 바랍니다";
     }
 
     @Override

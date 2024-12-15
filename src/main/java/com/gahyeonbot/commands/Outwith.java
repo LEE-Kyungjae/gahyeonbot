@@ -36,7 +36,9 @@ public class Outwith implements ICommand {
 
     @Override
     public String getDetailedDescription() {
-        return "";
+        return  "preset: 기본 제공하는 선택형 옵션입니다. 1시간,2시간과같은 기본 내보낼 시간설정을 통해 지정할수있습니다.\n" +
+                "time: 사용자가 직접 시간을 지정해 세세한 내보내기 시간지정을 할수있습니다. 1~4자리 숫자를 입력가능하며 \n" +
+                "숫자4개-> 시간(2자리) + 분(1자리) / 숫자 3개-> 시간(1자리)+분(2자리) / 숫자 1,2개 -> 분 으로 처리합니다";
     }
 
     @Override

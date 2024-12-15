@@ -26,7 +26,7 @@ public class Clean implements ICommand {
 
     @Override
     public String getDetailedDescription() {
-        return "";
+        return "원하는 삭제 메시지 수대로 삭제합니다. 권장값은 100이하입니다. 100을 초과할시 100개단위씩 삭제를 반복합니다. ";
     }
 
     @Override
