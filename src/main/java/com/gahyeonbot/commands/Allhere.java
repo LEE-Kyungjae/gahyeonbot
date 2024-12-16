@@ -1,6 +1,7 @@
 package com.gahyeonbot.commands;
 
 import com.gahyeonbot.ICommand;
+import com.gahyeonbot.config.Description;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.middleman.AudioChannel;
@@ -16,17 +17,17 @@ import java.util.Objects;
 public class Allhere implements ICommand { 
     @Override
     public String getName() {
-        return "allhere";
+        return Description.ALLHERE_NAME;
     }
 
     @Override
     public String getDescription() {
-        return "모든 보이스 채널의 사용자들을 현재 보이스 채널로 이동시킵니다.";
+        return Description.ALLHERE_DESC;
     }
 
     @Override
     public String getDetailedDescription() {
-        return "현디스코드서버의 모든 채널에있는 이용자를 사용자의 보이스채널로 집결시킵니다";
+        return Description.ALLHERE_DETAIL;
     }
 
     @Override

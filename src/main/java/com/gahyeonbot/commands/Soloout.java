@@ -1,6 +1,7 @@
 package com.gahyeonbot.commands;
 
 import com.gahyeonbot.ICommand;
+import com.gahyeonbot.config.Description;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -16,19 +17,17 @@ public class Soloout implements ICommand {
 
     @Override
     public String getName() {
-        return "soloout";
+        return Description.SOLOOUT_NAME;
     }
 
     @Override
     public String getDescription() {
-        return "지정한 시간 후에 보이스채널에 있는 사용자를 내보냅니다.";
+        return Description.SOLOOUT_DESC;
     }
 
     @Override
     public String getDetailedDescription() {
-        return  "preset: 기본 제공하는 선택형 옵션입니다. 1시간,2시간과같은 기본 내보낼 시간설정을 통해 지정할수있습니다.\n" +
-                "time: 사용자가 직접 시간을 지정해 세세한 내보내기 시간지정을 할수있습니다. 1~4자리 숫자를 입력가능하며 \n" +
-                "숫자4개-> 시간(2자리) + 분(1자리) / 숫자 3개-> 시간(1자리)+분(2자리) / 숫자 1,2개 -> 분 으로 처리합니다";
+        return  Description.SOLOOUT_DETAIL;
     }
 
     @Override

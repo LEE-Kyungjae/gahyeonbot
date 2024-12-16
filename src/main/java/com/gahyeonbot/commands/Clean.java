@@ -1,6 +1,7 @@
 package com.gahyeonbot.commands;
 
 import com.gahyeonbot.ICommand;
+import com.gahyeonbot.config.Description;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
@@ -16,17 +17,17 @@ import java.util.stream.Collectors;
 public class Clean implements ICommand {
     @Override
     public String getName() {
-        return "clean";
+        return Description.CLEAN_NAME;
     }
 
     @Override
     public String getDescription() {
-        return "채팅 삭제 명령어입니다. 전체채팅과 내가작성한 채팅 선택이 가능합니다.";
+        return Description.CLEAN_DESC;
     }
 
     @Override
     public String getDetailedDescription() {
-        return "원하는 삭제 메시지 수대로 삭제합니다. 권장값은 100이하입니다. 100을 초과할시 100개단위씩 삭제를 반복합니다. ";
+        return Description.CLEAN_DETAIL;
     }
 
     @Override

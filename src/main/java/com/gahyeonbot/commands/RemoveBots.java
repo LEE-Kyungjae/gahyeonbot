@@ -1,6 +1,7 @@
 package com.gahyeonbot.commands;
 
 import com.gahyeonbot.ICommand;
+import com.gahyeonbot.config.Description;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.middleman.AudioChannel;
@@ -14,17 +15,17 @@ import java.util.Objects;
 public class RemoveBots implements ICommand {
     @Override
     public String getName() {
-        return "removebots";
+        return Description.REMOVEBOTS_NAME;
     }
 
     @Override
     public String getDescription() {
-        return "현재 보이스 채널에서 모든 봇을 내보냅니다.";
+        return Description.REMOVEBOTS_DESC;
     }
 
     @Override
     public String getDetailedDescription() {
-        return "보이스채널에 있는 모든 봇을 내보내기때문에 현재 필요한봇이 있는지 확인하시길 바랍니다";
+        return Description.REMOVEBOTS_DETAIL;
     }
 
     @Override

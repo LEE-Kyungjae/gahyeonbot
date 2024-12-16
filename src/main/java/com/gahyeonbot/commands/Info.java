@@ -1,6 +1,7 @@
 package com.gahyeonbot.commands;
 
 import com.gahyeonbot.ICommand;
+import com.gahyeonbot.config.Description;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -18,17 +19,17 @@ public class Info implements ICommand {
 
     @Override
     public String getName() {
-        return "info";
+        return Description.INFO_NAME;
     }
 
     @Override
     public String getDescription() {
-        return "명령어 사용법 안내서";
+        return Description.INFO_DESC;
     }
 
     @Override
     public String getDetailedDescription() {
-        return "";
+        return Description.INFO_DETAIL;
     }
 
     @Override
