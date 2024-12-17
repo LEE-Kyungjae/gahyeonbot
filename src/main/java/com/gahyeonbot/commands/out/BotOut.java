@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class RemoveBots implements ICommand {
+public class BotOut implements ICommand {
     @Override
     public String getName() {
         return Description.BOTOUT_NAME;

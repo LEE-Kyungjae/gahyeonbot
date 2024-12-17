@@ -20,23 +20,23 @@ import java.util.concurrent.TimeUnit;
  * 커멘드를 사용하면 일정시간뒤에 접속한 보이스채널에 본인을포함한 멤버들을 모두 내보내는 커멘드
  */
 
-public class Outwith implements ICommand {
+public class WithOut implements ICommand {
     private ScheduledFuture<?> scheduledTask;
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
     @Override
     public String getName() {
-        return Description.OUTWITH_NAME;
+        return Description.WITHOUT_NAME;
     }
 
     @Override
     public String getDescription() {
-        return Description.OUTWITH_DESC;
+        return Description.WITHOUT_DESC;
     }
 
     @Override
     public String getDetailedDescription() {
-        return  Description.OUTWITH_DETAIL;
+        return  Description.WITHOUT_DETAIL;
     }
 
     @Override

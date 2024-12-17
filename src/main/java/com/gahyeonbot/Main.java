@@ -1,6 +1,9 @@
 package com.gahyeonbot;
 
 import com.gahyeonbot.commands.*;
+import com.gahyeonbot.commands.out.WithOut;
+import com.gahyeonbot.commands.out.BotOut;
+import com.gahyeonbot.commands.out.Out;
 import com.gahyeonbot.config.ConfigLoader;
 import com.gahyeonbot.listeners.CommandManager;
 import com.gahyeonbot.listeners.EventListeners;
@@ -67,10 +70,10 @@ public class Main {
     private void registerCommands(CommandManager manager) {
         List<ICommand> commandList = new ArrayList<>();
         commandList.add(new Clean());
-        commandList.add(new Soloout());
-        commandList.add(new Outwith());
+        commandList.add(new Out());
+        commandList.add(new WithOut());
         commandList.add(new Allhere());
-        commandList.add(new RemoveBots());
+        commandList.add(new BotOut());
 
         manager.add(new Info(commandList));
 

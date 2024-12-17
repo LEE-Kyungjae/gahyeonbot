@@ -12,22 +12,22 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class Soloout implements ICommand {
+public class Out implements ICommand {
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
     @Override
     public String getName() {
-        return Description.SOLOOUT_NAME;
+        return Description.OUT_NAME;
     }
 
     @Override
     public String getDescription() {
-        return Description.SOLOOUT_DESC;
+        return Description.OUT_DESC;
     }
 
     @Override
     public String getDetailedDescription() {
-        return  Description.SOLOOUT_DETAIL;
+        return  Description.OUT_DETAIL;
     }
 
     @Override
