@@ -1,4 +1,4 @@
-package com.gahyeonbot.commands;
+package com.gahyeonbot.commands.out;
 
 import com.gahyeonbot.ICommand;
 import com.gahyeonbot.config.Description;

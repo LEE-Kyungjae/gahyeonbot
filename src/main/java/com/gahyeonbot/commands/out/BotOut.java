@@ -1,8 +1,7 @@
-package com.gahyeonbot.commands;
+package com.gahyeonbot.commands.out;
 
 import com.gahyeonbot.ICommand;
 import com.gahyeonbot.config.Description;
-import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.middleman.AudioChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -15,17 +14,17 @@ import java.util.Objects;
 public class RemoveBots implements ICommand {
     @Override
     public String getName() {
-        return Description.REMOVEBOTS_NAME;
+        return Description.BOTOUT_NAME;
     }
 
     @Override
     public String getDescription() {
-        return Description.REMOVEBOTS_DESC;
+        return Description.BOTOUT_DESC;
     }
 
     @Override
     public String getDetailedDescription() {
-        return Description.REMOVEBOTS_DETAIL;
+        return Description.BOTOUT_DETAIL;
     }
 
     @Override
