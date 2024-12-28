@@ -11,27 +11,27 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import java.util.List;
 import java.util.Map;
 
-public class Pause implements ICommand {
+public class Skip implements ICommand {
 
     private final Map<Long, GuildMusicManager> musicManagers;
 
-    public Pause(Map<Long, GuildMusicManager> musicManagers) {
+    public Skip(Map<Long, GuildMusicManager> musicManagers) {
         this.musicManagers = musicManagers;
     }
 
     @Override
     public String getName() {
-        return Description.PAUSE_NAME;
+        return Description.SKIP_NAME;
     }
 
     @Override
     public String getDescription() {
-        return Description.PAUSE_DESC;
+        return Description.SKIP_DESC;
     }
 
     @Override
     public String getDetailedDescription() {
-        return Description.PAUSE_DETAIL;
+        return Description.SKIP_DETAIL;
     }
 
     @Override
@@ -42,22 +42,27 @@ public class Pause implements ICommand {
     @Override
     public void execute(SlashCommandInteractionEvent event) {
         var guild = event.getGuild();
+
         if (guild == null) {
-            ResponseUtil.replyError(event, "길드 정보를 가져올 수 없습니다.");
+            ResponseUtil.replyError(event, "길드를 찾을 수 없습니다.");
             return;
         }
 
-        GuildMusicManager musicManager = musicManagers.get(guild.getIdLong());
-        if (musicManager == null || musicManager.getCurrentTrack() == null) {
-            ResponseUtil.replyError(event, "현재 재생 중인 음악이 없습니다.");
+        var musicManager = musicManagers.get(guild.getIdLong());
+
+        if (musicManager == null || !musicManager.isPlaying()) {
+            ResponseUtil.replyError(event, "현재 재생 중인 트랙이 없습니다.");
             return;
         }
 
-        if (musicManager.isPaused()) {
-            ResponseUtil.replyError(event, "음악이 이미 일시정지 상태입니다.");
+        var currentTrack = musicManager.getCurrentTrack();
+        boolean trackSkipped = musicManager.skipCurrentTrack();
+
+        if (trackSkipped) {
+            var embed = EmbedUtil.createSkipEmbed(event, currentTrack.getInfo().title);
+            ResponseUtil.replyEmbed(event, embed);
         } else {
-            musicManager.pause(); // 일시정지
-            ResponseUtil.replyEmbed(event, EmbedUtil.createPauseEmbed(event));
+            ResponseUtil.replyError(event, "트랙을 건너뛸 수 없습니다.");
         }
     }
 }
