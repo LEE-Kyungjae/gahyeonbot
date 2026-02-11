@@ -22,12 +22,12 @@ jobs:
           java-version: '21'
 
       - name: Run Tests
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         with:
           arguments: clean test
 
       - name: Build JAR
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         with:
           arguments: bootJar -x test
 
