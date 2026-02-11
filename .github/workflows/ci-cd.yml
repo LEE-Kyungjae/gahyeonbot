@@ -145,7 +145,7 @@ jobs:
           source: "scripts/remote-deploy.sh"
           target: "/tmp"
       - name: Execute deployment
-        uses: appleboy/ssh-action@v1.0.2
+        uses: appleboy/ssh-action@v1.2.5
         env:
           TOKEN: ${{ secrets.TOKEN }}
           APPLICATION_ID: ${{ secrets.APPLICATION_ID }}
