@@ -64,7 +64,7 @@ dependencies {
     implementation 'net.dv8tion:JDA:5.2.1'
 
     // Lavaplayer (음악 재생)
-    implementation 'dev.arbjerg:lavaplayer:2.2.2'
+    implementation 'dev.arbjerg:lavaplayer:2.2.6'
 
     // Spotify API
     implementation 'se.michaelthelin.spotify:spotify-web-api-java:9.1.1'
