@@ -29,7 +29,7 @@ jobs:
           source: "scripts/remote-rollback.sh"
           target: "/tmp"
       - name: Execute rollback
-        uses: appleboy/ssh-action@v1.0.2
+        uses: appleboy/ssh-action@v1.2.5
         env:
           SPRING_PROFILES_ACTIVE: prod
         with:
